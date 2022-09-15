@@ -3,7 +3,6 @@ backports.zoneinfo==0.2.1
 cachetools==4.2.2
 certifi==2022.6.15.2
 charset-normalizer==2.1.1
-et==0.0.2
 idna==3.4
 pyaes==1.6.1
 Pyrogram==2.0.51
