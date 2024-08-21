@@ -1,3 +1,4 @@
+from random import randint
 import aiohttp
 from aiogram import Router
 from aiogram.filters import Command
@@ -113,5 +114,6 @@ async def get_random_news(msg: Message):
     if data.get('totalResults', 0) == 0:
         return await msg.answer('Ничего не нашлось. Увы!')
 
-    news = data['articles'][0]
+    max_index = data['totalResults'] - 1
+    news = data['articles'][randint(0, max_index)]
     await msg.answer(f'<b>{news["title"]}</b>\n\n{news["description"]}\n\n{news["url"]}')

@@ -19,5 +19,5 @@ DOGS_API_URL = 'https://api.thedogapi.com/v1/images/search'
 DOGS_API_KEY = os.environ['DOGS_API_KEY']
 
 NEWS_API_KEY = os.environ['NEWS_API_KEY']
-NEWS_API_URL = 'https://newsapi.org/v2/everything?q={}' + f'&sortBy=popularity&apiKey={NEWS_API_KEY}'
-NEWS_DEFAULT_QUERY = 'новость дня'
+NEWS_API_URL = 'https://newsapi.org/v2/everything?q={}' + f'&apiKey={NEWS_API_KEY}'
+NEWS_DEFAULT_QUERY = 'томск'
