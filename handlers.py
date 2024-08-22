@@ -150,3 +150,9 @@ async def get_cbr_rate(msg: Message):
 async def get_qr(msg: Message):
     data = ' '.join(msg.text.split(' ')[1:]).strip()
     await msg.answer_photo(QR_URL.format(data))
+
+
+@router.channel_post(Command('кто', prefix=COMMAND_PREFIX))
+@router.message(filter, Command('кто', prefix=COMMAND_PREFIX))
+async def get_who(msg: Message):
+    await msg.answer('🖕 Это ты! 🖕')
