@@ -19,6 +19,7 @@ from config import (
     PROXY_URL,
     RATES_URL,
     RATES_DEFAULT_CURRENCIES,
+    QR_URL,
 )
 from utils.xml import find_currency_rates
 
@@ -142,3 +143,10 @@ async def get_cbr_rate(msg: Message):
         for code, name, value in currency_rates
     )
     await msg.answer(message)
+
+
+@router.channel_post(Command('qr', prefix=COMMAND_PREFIX))
+@router.message(filter, Command('qr', prefix=COMMAND_PREFIX))
+async def get_qr(msg: Message):
+    data = ' '.join(msg.text.split(' ')[1:]).strip()
+    await msg.answer_photo(QR_URL.format(data))
