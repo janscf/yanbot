@@ -17,7 +17,10 @@ from config import (
     NEWS_API_URL,
     NEWS_DEFAULT_QUERY,
     PROXY_URL,
+    RATES_URL,
+    RATES_DEFAULT_CURRENCIES,
 )
+from utils.xml import find_currency_rates
 
 router = Router()
 filter = ChatTypeFilter(chat_type=["group", "supergroup"])
@@ -117,3 +120,25 @@ async def get_random_news(msg: Message):
     max_index = data['totalResults'] - 1
     news = data['articles'][randint(0, max_index)]
     await msg.answer(f'<b>{news["title"]}</b>\n\n{news["description"]}\n\n{news["url"]}')
+
+
+@router.channel_post(Command('курс', prefix=COMMAND_PREFIX))
+@router.message(filter, Command('курс', prefix=COMMAND_PREFIX))
+async def get_cbr_rate(msg: Message):
+    currencies = msg.text.split(' ')[1:] or RATES_DEFAULT_CURRENCIES
+
+    async with aiohttp.ClientSession() as session:
+        response = await session.get(
+            RATES_URL,
+            raise_for_status=True,
+            proxy=PROXY_URL,
+        )
+        async with response:
+            data = await response.text()
+
+    currency_rates = find_currency_rates(data, currencies)
+    message = '\n'.join(
+        f'{name} ({code}): {value} р.'
+        for code, name, value in currency_rates
+    )
+    await msg.answer(message)

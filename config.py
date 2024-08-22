@@ -21,3 +21,6 @@ DOGS_API_KEY = os.environ['DOGS_API_KEY']
 NEWS_API_KEY = os.environ['NEWS_API_KEY']
 NEWS_API_URL = 'https://newsapi.org/v2/everything?q={}' + f'&apiKey={NEWS_API_KEY}'
 NEWS_DEFAULT_QUERY = 'томск'
+
+RATES_URL = 'https://www.cbr.ru/scripts/XML_daily.asp'
+RATES_DEFAULT_CURRENCIES = ('USD', 'EUR', 'CNY')
