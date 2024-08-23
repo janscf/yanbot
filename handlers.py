@@ -155,7 +155,7 @@ async def get_qr(msg: Message):
 
 @router.channel_post(Command('шутка', prefix=COMMAND_PREFIX))
 @router.message(filter, Command('шутка', prefix=COMMAND_PREFIX))
-async def get_qr(msg: Message):
+async def get_short_joke(msg: Message):
     async with aiohttp.ClientSession() as session:
         response = await session.get(
             SHORT_JOKES_URL,
