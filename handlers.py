@@ -1,4 +1,4 @@
-from random import randint
+from random import choice, randint
 import aiohttp
 from aiogram import Router
 from aiogram.filters import Command
@@ -166,8 +166,9 @@ async def get_short_joke(msg: Message):
             data = await response.json()
 
     if not data:
-        return await msg.answer('Какие уж тут шутки, когда страна в опасности!')
-    joke = data[randint(0, 99)]
+        return await msg.answer('Какие уж тут шутки!')
+
+    joke = choice(data)
     await msg.answer(joke['content'])
 
 
