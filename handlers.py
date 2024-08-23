@@ -20,6 +20,7 @@ from config import (
     RATES_URL,
     RATES_DEFAULT_CURRENCIES,
     QR_URL,
+    SHORT_JOKES_URL,
 )
 from utils.xml import find_currency_rates
 
@@ -150,6 +151,24 @@ async def get_cbr_rate(msg: Message):
 async def get_qr(msg: Message):
     data = ' '.join(msg.text.split(' ')[1:]).strip()
     await msg.answer_photo(QR_URL.format(data))
+
+
+@router.channel_post(Command('шутка', prefix=COMMAND_PREFIX))
+@router.message(filter, Command('шутка', prefix=COMMAND_PREFIX))
+async def get_qr(msg: Message):
+    async with aiohttp.ClientSession() as session:
+        response = await session.get(
+            SHORT_JOKES_URL,
+            raise_for_status=True,
+            proxy=PROXY_URL,
+        )
+        async with response:
+            data = await response.json()
+
+    if not data:
+        return await msg.answer('Какие уж тут шутки, когда страна в опасности!')
+    joke = data[randint(0, 99)]
+    await msg.answer(joke['content'])
 
 
 @router.channel_post(Command('кто', prefix=COMMAND_PREFIX))

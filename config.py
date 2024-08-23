@@ -26,3 +26,5 @@ RATES_URL = 'https://www.cbr.ru/scripts/XML_daily.asp'
 RATES_DEFAULT_CURRENCIES = ('USD', 'EUR', 'CNY')
 
 QR_URL = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={}'
+
+SHORT_JOKES_URL = 'https://shortiki.com/export/api.php?format=json&amount=100&type=random'
